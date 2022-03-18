@@ -10,41 +10,48 @@ namespace FortranLanguageClient
         [DefaultValue("absolute_path\\to\\fortls.exe")]
         public string FortlsPath { get; set; } = "absolute_path\\to\\fortls.exe";
 
-        [Category("Settings")]
-        [DisplayName("Type member symbols")]
-        [Description("Include type members in document outline")]
+        //  Autocomplete
+        [Category("Autocomplete")]
+        [DisplayName("--autocomplete_no_prefix")]
+        [Description("Do not filter autocomplete results by variable prefix")]
         [DefaultValue(true)]
-        public bool TypeMemberSymbols { get; set; } = true;
+        public bool AutocompleteNoPrefix { get; set; } = true;
 
-        [Category("Settings")]
-        [DisplayName("Filter autocomplete suggestions")]
-        [Description("Filter autocomplete suggestions with variable prefix")]
+        [Category("Autocomplete")]
+        [DisplayName("--autocomplete_no_snippets")]
+        [Description("Do not use snippets with place holders in autocomplete results")]
+        [DefaultValue(true)]
+        public bool AutocompleteNoSnippets { get; set; } = true;
+
+        [Category("Autocomplete")]
+        [DisplayName("--autocomplete_name_only")]
+        [Description("Complete only the name of procedures and not the parameters")]
         [DefaultValue(false)]
-        public bool FilterAutocomplete { get; set; } = false;
+        public bool AutocompleteNameOnly { get; set; } = false;
 
-        [Category("Settings")]
-        [DisplayName("Lowercase intrinsics")]
+        [Category("Autocomplete")]
+        [DisplayName("--lowercase_intrinsics")]
         [Description("Use lowercase for intrinsics and keywords in autocomplete requests")]
         [DefaultValue(false)]
-        public bool LowercaseIntrinsics { get; set; } = false;
+        public bool AutocompleteLowercaseIntrinsics { get; set; } = false;
 
-        [Category("Settings")]
-        [DisplayName("Incremental synchronization")]
-        [Description("Use incremental synchronization for file changes")]
-        [DefaultValue(true)]
-        public bool IncrementalSync { get; set; } = true;
-
-        [Category("Settings")]
-        [DisplayName("Variable hover")]
-        [Description("Show hover information for variables")]
+        [Category("Autocomplete")]
+        [DisplayName("--use_signature_help")]
+        [Description("Use signature help instead of subroutine/function snippets. This effectively sets --autocomplete_no_snippets")]
         [DefaultValue(false)]
-        public bool VariableHover { get; set; } = false;
+        public bool AutocompleteSignatureHelp { get; set; } = false;
 
-        [Category("Settings")]
-        [DisplayName("Signature help")]
-        [Description("Use signature help instead of snippets when available")]
+        //  Hover Options
+        [Category("Hover")]
+        [DisplayName("--variable_hover")]
+        [Description("DEPRECATED: This option is always on. Show hover information for variables")]
         [DefaultValue(true)]
-        public bool SignatureHelp { get; set; } = true;
+        public bool HoverVariable { get; set; } = true;
 
+        [Category("Hover")]
+        [DisplayName("--hover_signature")]
+        [Description("Show signature information in hover for arguments")]
+        [DefaultValue(true)]
+        public bool HoverSignature { get; set; } = true;
     }
 }
