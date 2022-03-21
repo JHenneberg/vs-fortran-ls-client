@@ -20,7 +20,7 @@ using System.Threading.Tasks;
  * Grammar files were taken from https://github.com/dparkins/language-fortran,
  * converted from cson to json,
  * then converted to tmLanguage using vscode TextMate Languages extension (https://marketplace.visualstudio.com/items?itemName=Togusa09.tmlanguage).
- * 
+ *
  */
 namespace FortranLanguageClient
 {
@@ -42,7 +42,7 @@ namespace FortranLanguageClient
                 }
             }
         }
-            
+
         public IEnumerable<string> ConfigurationSections
         {
             get
@@ -58,12 +58,17 @@ namespace FortranLanguageClient
             var programPath = options.FortlsPath;
 
             var arguments = "";
-            if (options.TypeMemberSymbols == false) arguments += "--symbol_skip_mem ";
-            if (options.FilterAutocomplete == false) arguments += "--autocomplete_no_prefix ";
-            if (options.LowercaseIntrinsics == true) arguments += "--lowercase_intrinsics ";
-            if (options.IncrementalSync == true) arguments += "--incremental_sync ";
-            if (options.VariableHover == true) arguments += "--variable_hover ";
-            if (options.SignatureHelp == true) arguments += "--use_signature_help ";
+
+            // Autocomplete Options
+            if (options.AutocompleteNoPrefix == true) arguments += "--autocomplete_no_prefix ";
+            if (options.AutocompleteNoSnippets == true) arguments += "--autocomplete_no_snippets ";
+            if (options.AutocompleteNameOnly == true) arguments += "--autocomplete_name_only ";
+            if (options.AutocompleteLowercaseIntrinsics == true) arguments += "--lowercase_intrinsics ";
+            if (options.AutocompleteSignatureHelp == true) arguments += "--use_signature_help ";
+
+            // Hover Options
+            if (options.HoverVariable == true) arguments += "--variable_hover ";
+            if (options.HoverSignature == true) arguments += "--hover_signature ";
 
             ProcessStartInfo info = new ProcessStartInfo();
             info.Arguments = arguments;
@@ -84,7 +89,7 @@ namespace FortranLanguageClient
 
             var bufferSize = 256;
             var readerPipe = new NamedPipeServerStream(stdInPipeName, PipeDirection.InOut, 4, PipeTransmissionMode.Message, PipeOptions.Asynchronous, bufferSize, bufferSize, pipeSecurity);
-            var writerPipe = new NamedPipeServerStream(stdOutPipeName, PipeDirection.InOut, 4, PipeTransmissionMode.Message, PipeOptions.Asynchronous, bufferSize, bufferSize, pipeSecurity);            
+            var writerPipe = new NamedPipeServerStream(stdOutPipeName, PipeDirection.InOut, 4, PipeTransmissionMode.Message, PipeOptions.Asynchronous, bufferSize, bufferSize, pipeSecurity);
             */
 
             Process process = new Process();
@@ -133,7 +138,7 @@ namespace FortranLanguageClient
 
         public object CustomMessageTarget => null;
 
- 
+
        /* public async System.Threading.Tasks.Task AttachForCustomMessageAsync(JsonRpc rpc)
         {
             this.Rpc = rpc;
